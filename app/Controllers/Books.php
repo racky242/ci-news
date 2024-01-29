@@ -1,8 +1,6 @@
 <?php
 
 namespace App\Controllers;
-
-use CodeIgniter\Exceptions\PageNotFoundException;
 use App\Models\BookModel;
 
 class Books extends BaseController
@@ -58,5 +56,27 @@ class Books extends BaseController
         $b = new BookModel();
         $data['bk'] = $b->where('book_id', $book_id)->delete($book_id);
         return redirect()->to('/');
+    }
+
+    public function sendMail()
+    {
+        $to = 'zerouno123789@gmail.com';
+        $subject = 'testing';
+        $message = 'test message';
+        $email = \Config\Services::email();
+        $email->setTo($to);
+        $email->setFrom('zerouno789123@gmail.com', $subject);
+        $email->setMessage($message);
+        if($email->send()){
+            echo 'email sent successfuly';
+        }else{
+            $data = $email->printDebugger(['headers']);
+            print($data);
+        }
+    }
+
+    public function mail()
+    {
+        $this->sendMail();
     }
 }

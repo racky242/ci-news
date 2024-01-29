@@ -12,3 +12,5 @@ $routes->post('/update', 'Books::update');
 $routes->get('/add', 'Books::add');
 $routes->post('/save', 'Books::save');
 $routes->get('/delete/(:any)', 'Books::delete/$1');
+
+$routes->match(['get', 'post'], '/mail', 'Books::mail');
